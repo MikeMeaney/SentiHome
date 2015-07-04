@@ -1,0 +1,41 @@
+# Mike Meaney 2015 calitexaco.com
+# sentiHome All On / Off Demo
+
+from phue import Bridge	##The Hue Api
+import lifx ##The LIFX Api
+import RPi.GPIO as GPIO # GPIO Api
+from time import sleep
+
+outPin = 4
+inPin = 13
+toggle = False
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(outPin, GPIO.OUT)
+GPIO.setup(inPin, GPIO.IN)
+GPIO.output(outPin,0)
+
+# Create LIFX Connection
+xLights = lifx.Lifx()
+
+#Create Hue Connection
+b = Bridge('192.168.0.45')
+hLights = b.get_light_objects()
+
+# Print the LifX Lights
+print(xLights)
+
+print('--- HUE ----')
+for lh in hLights:
+	print(lh)
+
+while True:
+	GPIO.wait_for_edge(inPin, GPIO.FALLING)
+	print("Button Pressed")
+	if toggle == True:
+		toggle =
+	print(toggle)
+	GPIO.wait_for_edge(inPin, GPIO.RISING)
+	print("Button Released")
+GPIO.cleanup()
